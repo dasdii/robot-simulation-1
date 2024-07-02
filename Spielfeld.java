@@ -208,9 +208,6 @@ public class Spielfeld
 
     public void hindernisseUmfahren()
     {
-        roboter = new Roboter();
-        roboter.setPosition(0, 0);
-
         while (!roboter.anWand(getWidth(), getHeight()))
         {
             if (roboter.kannNachRechtsBewegen(hindernisse, getWidth()))

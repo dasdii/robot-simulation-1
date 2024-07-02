@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 class Zeichenflaeche extends JPanel
 {
-    private ArrayList<Rechteck> figuren = new ArrayList<>(); //ArryList von Rechteck, der hindernisse enthält
+    private ArrayList<Rechteck> hinternisse = null;
     private Kreis roboter = null;
 
     public Zeichenflaeche()
@@ -16,10 +16,13 @@ class Zeichenflaeche extends JPanel
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        for (Rechteck r : figuren) {
-            g.setColor(r.getFarbe());
-            g.drawRect(r.getPosition().getX(), r.getPosition().getY(), r.getBreite(), r.getLaenge());
-            g.fillRect(r.getPosition().getX(), r.getPosition().getY(), r.getBreite(), r.getLaenge());
+        if (null != hinternisse)
+        {
+            for (Rechteck r : hinternisse) {
+                g.setColor(r.getFarbe());
+                g.drawRect(r.getPosition().getX(), r.getPosition().getY(), r.getBreite(), r.getLaenge());
+                g.fillRect(r.getPosition().getX(), r.getPosition().getY(), r.getBreite(), r.getLaenge());
+            }
         }
         if (null != roboter)
         {
@@ -29,15 +32,15 @@ class Zeichenflaeche extends JPanel
     }
 
     //aktualisieren d. Liste v. gGezeichneten
-    public void repaintRechtecke(ArrayList<Rechteck> neueFiguren)
+    public void repaint(ArrayList<Rechteck> hinternisse)
     {
-        this.figuren = neueFiguren;
+        this.hinternisse = hinternisse;
         repaint();
     }
 
-    public void repaintRoboter(Kreis neueRoboter)
+    public void repaint(Kreis roboter)
     {
-        this.roboter = neueRoboter;
+        this.roboter = roboter;
         repaint();
     }
 }
@@ -64,11 +67,11 @@ public class Leinwand
     public void zeichnen(ArrayList<Rechteck> hindernisse)
     {
         //Übergabe Hindernisse an Zeichenfläche
-        zeichenflaeche.repaintRechtecke(hindernisse);
+        zeichenflaeche.repaint(hindernisse);
     }
 
     public void zeichnen(Kreis roboter)
     {
-        zeichenflaeche.repaintRoboter(roboter);
+        zeichenflaeche.repaint(roboter);
     }
 }
