@@ -255,47 +255,49 @@ public class Spielfeld
     public static void main(String[] args)
     {
         Spielfeld spielfeld = new Spielfeld();
-        Scanner scanner = new Scanner(System.in);
         ArrayList<Rechteck> hindernisse = spielfeld.hindernislisteErzeugen();
         spielfeld.zeichnen(hindernisse);
-        String aufgabe;
         Kreis roboter = spielfeld.roboterErzeugen();
         spielfeld.zeichnen(roboter);
-
         System.out.println("Hindernisse:");
         for (Rechteck r : hindernisse)
         {
             System.out.println(r.getBezeichnung() + " an Position (" + r.getPosition() + ") mit Breite " + r.getBreite() + " und Länge " + r.getLaenge());
         }
 
-        do
+        Scanner scanner = new Scanner(System.in);
+        try
         {
-            System.out.println("Welche Aufgabe möchten Sie lösen?");
-            System.out.println("1. Points-of-Interest abfahren");
-            System.out.println("2. Hindernisse umfahren");
-            System.out.println("3. Stichwörter erkennen und antworten");
-            System.out.println("Ende zum Beenden");
-            aufgabe = scanner.nextLine();
-
-            //Auswahl entsprechender Methoden basierend auf Benutzereingabe.
-            switch (aufgabe)
+            String aufgabe = new String();
+            while (!aufgabe.equalsIgnoreCase("Ende"))
             {
-                case "1":
-                    // Code Points-of-Interest abfahren
-                    spielfeld.poiAbfahren();
-                    break;
-                case "2":
-                    // Code Hindernisseumfahren
-                    spielfeld.hindernisseUmfahren();
-                    break;
-                case "3":
-                    // Aufruf Spracherkennung
-                    spielfeld.roboter.spracherkennung();
-                    break;
+                System.out.println("Welche Aufgabe möchten Sie lösen?");
+                System.out.println("1. Points-of-Interest abfahren");
+                System.out.println("2. Hindernisse umfahren");
+                System.out.println("3. Stichwörter erkennen und antworten");
+                System.out.println("Ende zum Beenden");
+                aufgabe = scanner.nextLine();
+                //Auswahl entsprechender Methoden basierend auf Benutzereingabe.
+                switch (aufgabe)
+                {
+                    case "1":
+                        // Code Points-of-Interest abfahren
+                        spielfeld.poiAbfahren();
+                        break;
+                    case "2":
+                        // Code Hindernisseumfahren
+                        spielfeld.hindernisseUmfahren();
+                        break;
+                    case "3":
+                        // Aufruf Spracherkennung
+                        spielfeld.roboter.spracherkennung();
+                        break;
+                }
             }
         }
-        while (!aufgabe.equalsIgnoreCase("Ende"));
-
-        scanner.close();
+        finally
+        {
+            scanner.close();
+        }
     }
 }
