@@ -4,14 +4,11 @@ import java.util.ArrayList;
 
 class Zeichenflaeche extends JPanel
 {
-    private ArrayList<Rechteck> figuren; //ArryList von Rechteck, der hindernisse enthält
-    private Kreis roboter;
+    private ArrayList<Rechteck> figuren = new ArrayList<>(); //ArryList von Rechteck, der hindernisse enthält
+    private Kreis roboter = null;
 
     public Zeichenflaeche()
     {
-        // Initialisierung der ArrayList figuren.
-        figuren = new ArrayList<>();
-        roboter = new Kreis(new Punkt(0,0), 50, java.awt.Color.BLACK);
     }
 
     //paintComponent zur Darstellung d. Hindernisse
@@ -24,8 +21,11 @@ class Zeichenflaeche extends JPanel
             g.drawRect(r.getPosition().getX(), r.getPosition().getY(), r.getBreite(), r.getLaenge());
             g.fillRect(r.getPosition().getX(), r.getPosition().getY(), r.getBreite(), r.getLaenge());
         }
-        g.drawOval(roboter.getPosition().getX(), roboter.getPosition().getY(), roboter.getDurchmesser(), roboter.getDurchmesser());
-        g.fillOval(roboter.getPosition().getX(), roboter.getPosition().getY(), roboter.getDurchmesser(), roboter.getDurchmesser());
+        if (null != roboter)
+        {
+            g.drawOval(roboter.getPosition().getX(), roboter.getPosition().getY(), roboter.getDurchmesser(), roboter.getDurchmesser());
+            g.fillOval(roboter.getPosition().getX(), roboter.getPosition().getY(), roboter.getDurchmesser(), roboter.getDurchmesser());
+        }
     }
 
     //aktualisieren d. Liste v. gGezeichneten

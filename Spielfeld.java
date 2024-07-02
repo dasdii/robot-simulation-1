@@ -39,24 +39,11 @@ public class Spielfeld
     public Kreis roboterErzeugen()
     {
         return new Kreis (new Punkt(0, 0), 50, Color.BLACK);
-        /*Kreis neuerRoboter = new Kreis(new Punkt(0, 0), 50, java.awt.Color.BLACK);
-        return neuerRoboter;    //!roboter
-        */
     }
 
-    public ArrayList<Rechteck> hindernislisteErzeugen()
+    public ArrayList<Rechteck> hindernislisteErzeugen(int anzahlHindernisse)
     {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Wie viele Hindernisse möchten Sie eingeben? ");
-        int anzahlHindernisse = scanner.nextInt();
-        ArrayList<Rechteck> hindernisliste = new ArrayList<>();
-
-        if (50 <= anzahlHindernisse)
-        {
-            System.out.println("Maximale Grenze von 50 generierten Rechtecken wurde erreicht.");
-            return hindernisliste;
-        }
-
+        ArrayList<Rechteck> hindernisliste = new ArrayList<>(anzahlHindernisse);
         int versuche = 0;
         for (int i = 0; i < anzahlHindernisse; i++)
         {
@@ -244,28 +231,37 @@ public class Spielfeld
     public int getWidth()
     {
         // Breite des Spielfelds
-        return BREITE; //
+        return BREITE;
     }
 
     public int getHeight()
     {
-        return LAENGE; //
+        // Länge des Spielfelds
+        return LAENGE;
     }
 
     public static void main(String[] args)
     {
         Spielfeld spielfeld = new Spielfeld();
-        ArrayList<Rechteck> hindernisse = spielfeld.hindernislisteErzeugen();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Wie viele Hindernisse möchten Sie eingeben? ");
+        int anzahlHindernisse = scanner.nextInt();
+        if (50 <= anzahlHindernisse)
+        {
+            System.out.println("Maximale Grenze von 50 generierten Rechtecken wurde erreicht.");
+            return;
+        }
+
+        ArrayList<Rechteck> hindernisse = spielfeld.hindernislisteErzeugen(anzahlHindernisse);
         spielfeld.zeichnen(hindernisse);
-        Kreis roboter = spielfeld.roboterErzeugen();
-        spielfeld.zeichnen(roboter);
         System.out.println("Hindernisse:");
         for (Rechteck r : hindernisse)
         {
             System.out.println(r.getBezeichnung() + " an Position (" + r.getPosition() + ") mit Breite " + r.getBreite() + " und Länge " + r.getLaenge());
         }
+        Kreis roboter = spielfeld.roboterErzeugen();
+        spielfeld.zeichnen(roboter);
 
-        Scanner scanner = new Scanner(System.in);
         try
         {
             String aufgabe = new String();
